@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharpBot"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="484" Width="800">
+    <Grid HorizontalAlignment="Center" Width="800" Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="userList" HorizontalAlignment="Left" FontSize="30" Margin="10,10,0,20" Width="150" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Nike}"></TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox
+            ItemsSource="{Binding ElementName=userList, Path=SelectedItem.Messages}"
+            HorizontalAlignment="Left" 
+            FontSize="30" Margin="165,10,0,20" Width="625" Grid.ColumnSpan="2" />
+
     </Grid>
 </Window>
