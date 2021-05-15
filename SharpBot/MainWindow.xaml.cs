@@ -42,14 +42,25 @@ namespace SharpBot
             questions.Add(new Questions { ID = 2, Text = "222" });
             questions.Add(new Questions { ID = 3, Text = "333" });
             bot.Bot.OnMessage += OnMessageHandler;
-            bot.Bot.OnInlineQuery += OnInlineQueryHandler;
+            bot.Bot.OnCallbackQuery += OnInlineQueryHandler;
             bot.Bot.StartReceiving();
 
             
         }
-        private void OnInlineQueryHandler(object sender, InlineQueryEventArgs e)
+        private async void OnInlineQueryHandler(object sender, CallbackQueryEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.CallbackQuery.Data == "Command_1")
+            {
+                await bot.Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "Command_1");
+
+
+            }
+            else if (e.CallbackQuery.Data == "Command_2")
+            {
+
+                await bot.Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "Command_2");
+            }
+
         }
 
         /// <summary>

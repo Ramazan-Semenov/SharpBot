@@ -18,16 +18,17 @@ namespace SharpBot
         private  ObservableCollection<Questions> questions;
         private ObservableCollection<mes> mes;
         private BotButtons Buttons=new BotButtons();
-
+        string gg = @"Добро пожаловать в КубГТУ! Абитуриентам мы особо рады, поможем определиться с выбором, расскажем про все этапы подачи документов.
+И самое главное, не нужно никуда ехать, документы на рассмотрение можно прислать сюда, а далее после проверки, специалист приемной комиссии свяжемся с Вами для согласования дальнейших действий 😇 Всё просто)";
         public StepQuestionsClass(ObservableCollection<BotUser> Users, ObservableCollection<Questions> questions)
         {
             this.Users = Users;
             this.questions = questions;
             mes = new ObservableCollection<mes>();
-            mes.Add(new mes { text="jjj", replyMarkup=new BotButtons().InlineKeyboardMarkupButtons() });
-            mes.Add(new mes { text = "jjj", replyMarkup = new BotButtons().GetButtons() });
+            mes.Add(new mes { text=gg});
+            mes.Add(new mes { text = "В чём вопрос?", replyMarkup = (IReplyMarkup)new BotButtons().rrrrr() });
 
-            mes.Add(new mes { text = "ppp",replyMarkup=new ReplyKeyboardRemove() });
+            mes.Add(new mes { text = "Конец",replyMarkup=new ReplyKeyboardRemove() });
         }
 
         /// <summary>

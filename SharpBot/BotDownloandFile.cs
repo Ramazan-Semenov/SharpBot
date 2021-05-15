@@ -37,6 +37,7 @@ namespace SharpBot
                 await bot.DownloadFileAsync(file.Result.FilePath, saveImageStream);
             }
             await bot.SendTextMessageAsync(e.Message.Chat.Id, "Image save");
+            Users[Users.IndexOf(person)].Сount++;
         }
     }
 }
