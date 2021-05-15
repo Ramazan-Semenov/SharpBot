@@ -22,7 +22,8 @@
         <ListBox
             ItemsSource="{Binding ElementName=userList, Path=SelectedItem.Messages}"
             HorizontalAlignment="Left" 
-            FontSize="30" Margin="165,10,0,20" Width="625" Grid.ColumnSpan="2" />
+            FontSize="30" Margin="165,10,0,242" Width="625" Grid.ColumnSpan="2" />
+        <Image x:Name="f" HorizontalAlignment="Left" Height="100" Margin="305,309,0,0" VerticalAlignment="Top" Width="400"/>
 
     </Grid>
 </Window>

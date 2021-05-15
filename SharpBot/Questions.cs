@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SharpBot
 {
-    class Questions
+  public  class Questions
     {
         private int id;
         public int ID

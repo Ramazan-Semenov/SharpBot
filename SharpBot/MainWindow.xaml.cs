@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace SharpBot
 {
@@ -28,12 +30,9 @@ namespace SharpBot
 
         private static ObservableCollection<BotUser> Users;
         private static ObservableCollection<Questions> questions;
-        private static readonly string token = "1833119055:AAFk3L81Z4lHybJo54uusZWCBX2a6D6z2hI";
-        private static TelegramBotClient client;
-
+        TeleBot bot = new TeleBot();
         public MainWindow()
-        {
-            InitializeComponent();
+        {            InitializeComponent();
 
 
             Users = new ObservableCollection<BotUser>();
@@ -42,112 +41,40 @@ namespace SharpBot
             questions.Add(new Questions { ID = 1, Text = "111" });
             questions.Add(new Questions { ID = 2, Text = "222" });
             questions.Add(new Questions { ID = 3, Text = "333" });
-            client = new TelegramBotClient(token);
-            //client.StartReceiving();
-            client.OnMessage += OnMessageHandler;
-            //delegate (object sender, MessageEventArgs e)
-            //{
-            //    string msg = $"{DateTime.Now}: {e.Message.Chat.FirstName} {e.Message.Chat.Id} {e.Message.Text}";
+            bot.Bot.OnMessage += OnMessageHandler;
+            bot.Bot.OnInlineQuery += OnInlineQueryHandler;
+            bot.Bot.StartReceiving();
 
-            //    File.AppendAllText("data.log", $"{msg}\n");
-            //    Debug.WriteLine(msg);
-
-
-            //    this.Dispatcher.Invoke(() =>
-            //    {
-            //        var person = new BotUser(e.Message.Chat.FirstName, e.Message.Chat.Id);
-            //        if (!Users.Contains(person))
-            //        {
-            //            Users.Add(person);
-            //        }
-            //        Users[Users.IndexOf(person)].AddMessage($"{person.Nike}: {e.Message.Text}");
-
-
-            //    });
-
-            //};
-            //btnSendMsg.Click += delegate { SendMsg(); };
-        
-            client.StartReceiving();
-
-            //txtSendMsg.KeyDown += (s, e) => { if (e.Key == Key.Return) { SendMsg(); } };
+            
         }
-
-        //public void SendMsg()
-        //{
-        //    var concreteUser = Users[Users.IndexOf(userList.SelectedItem as BotUser)];
-        //    string responseMsg = $"Bot: {txtSendMsg.Text}";
-        //    concreteUser.Messages.Add(responseMsg);
-        //    client.SendTextMessageAsync(concreteUser.ID,txtSendMsg.Text);
-
-        //    txtSendMsg.Text = string.Empty;
-        //}
-        private static void OnMessageHandler(object sender, MessageEventArgs e)
+        private void OnInlineQueryHandler(object sender, InlineQueryEventArgs e)
         {
-
-            string msg = $"{DateTime.Now}: {e.Message.Chat.FirstName} {e.Message.Chat.Id} {e.Message.Text}";
-
-            File.AppendAllText("data.log", $"{msg}\n");
-
-            Debug.WriteLine(msg);
-
-
-
-            Application.Current.Dispatcher.Invoke(() =>
-                {
-                    
-                    var person = new BotUser(e.Message.Chat.FirstName, e.Message.Chat.Id);
-                    if (!Users.Contains(person))
-                    {
-                        Users.Add(person);
-                    }
-                    Users[Users.IndexOf(person)].AddMessage($"{person.Nike}: {e.Message.Text}");
-                    NewMethod(person);
-
-                });
-
-
-
-
-            //BotUser person = new BotUser(e.Message.Chat.FirstName, e.Message.Chat.Id);
-
-            //if (!Users.Contains(person))
-            //{
-            //    Users.Add(person);
-            //}
-            //Console.WriteLine(msg);
-            //Users[Users.IndexOf(person)].AddMessage($"{person.Nike}: {e.Message.Text}");
-
-            //NewMethod(person);
-
-            //Debug.WriteLine(Users[Users.IndexOf(person)].Сount);
-
+            throw new NotImplementedException();
         }
+
         /// <summary>
-        /// Отравка сообщения
+        /// Событие на получение сообщений
         /// </summary>
-        /// <param name = "person" ></ param >
-        private static void NewMethod(BotUser person)
+        /// <param name="sender"></param>
+        /// <param name="e">Получения клиента и его данных из сообщения</param>
+        private static async void OnMessageHandler(object sender, MessageEventArgs e)
         {
-            //доделать
-            try
+           
+            if (e.Message.Type == MessageType.Text)
             {
-                if (questions.Count > Users[Users.IndexOf(person)].Сount)
-                {
+                new MessageClient(Users,questions).GenMessage(e);
 
-                    client.SendTextMessageAsync(Users[Users.IndexOf(person)].ID, questions[Users[Users.IndexOf(person)].Сount].Text);
-                    Users[Users.IndexOf(person)].Сount++;
-                }
-                else
-                {
-
-                    client.SendTextMessageAsync(Users[Users.IndexOf(person)].ID, "Конец");
-
-                }
-            }catch(Exception e)
-            {
-                Debug.WriteLine(e.Message);
             }
+            else if (e.Message.Type == MessageType.Photo)
+            {
+                await new BotDownloandFile().DownloadPhoto(e);
+            }
+            else if (e.Message.Type == MessageType.Document)
+            {
+                await new BotDownloandFile().DownloadDocument(e);
+            }
+
+
         }
     }
 }
