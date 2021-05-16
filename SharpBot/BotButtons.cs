@@ -38,7 +38,7 @@ namespace SharpBot
            
 
         }
-        public InlineKeyboardMarkup rrrrr()
+        public InlineKeyboardMarkup InlineKeyboardMarkupButtons()
         {
 
             var KeyboardButons = new InlineKeyboardButton[][]
@@ -70,16 +70,16 @@ namespace SharpBot
                   };
             return KeyboardButons;
         }
-        public  InlineKeyboardMarkup InlineKeyboardMarkupButtons()
-        {
-            return new InlineKeyboardMarkup(new[]
-           {
-                    new []
-                    {
-                        InlineKeyboardButton.WithCallbackData("Одноразовые товары", "Command_1"),
-                        InlineKeyboardButton.WithCallbackData("Многоразовые товары","Command_2"),
-                    }
-                });
-        }
+        //public  InlineKeyboardMarkup InlineKeyboardMarkupButtons()
+        //{
+        //    return new InlineKeyboardMarkup(new[]
+        //   {
+        //            new []
+        //            {
+        //                InlineKeyboardButton.WithCallbackData("Одноразовые товары", "Command_1"),
+        //                InlineKeyboardButton.WithCallbackData("Многоразовые товары","Command_2"),
+        //            }
+        //        });
+        //}
     }
 }

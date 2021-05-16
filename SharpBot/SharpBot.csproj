@@ -62,10 +62,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BotButtons.cs" />
-    <Compile Include="BotDownloandFile.cs" />
-    <Compile Include="mes.cs" />
-    <Compile Include="MessageClient.cs" />
     <Compile Include="Questions.cs" />
+    <Compile Include="MessageClient.cs" />
     <Compile Include="StepQuestionsClass.cs" />
     <Compile Include="TeleBot.cs" />
     <Page Include="MainWindow.xaml">

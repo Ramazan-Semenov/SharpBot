@@ -30,9 +30,13 @@ namespace SharpBot
 
         private static ObservableCollection<BotUser> Users;
         private static ObservableCollection<Questions> questions;
+        string gg = @"Добро пожаловать в КубГТУ! Абитуриентам мы особо рады, поможем определиться с выбором, расскажем про все этапы подачи документов.
+И самое главное, не нужно никуда ехать, документы на рассмотрение можно прислать сюда, а далее после проверки, специалист приемной комиссии свяжемся с Вами для согласования дальнейших действий 😇 Всё просто)";
+
         TeleBot bot = new TeleBot();
         public MainWindow()
-        {            InitializeComponent();
+        {            
+            InitializeComponent();
 
 
             Users = new ObservableCollection<BotUser>();
@@ -41,6 +45,12 @@ namespace SharpBot
             questions.Add(new Questions { ID = 1, Text = "111" });
             questions.Add(new Questions { ID = 2, Text = "222" });
             questions.Add(new Questions { ID = 3, Text = "333" });
+            questions.Add(new Questions {ID=4, Text = gg+"\nВ чём вопрос?", replyMarkup = (IReplyMarkup)new BotButtons().GetButtons() });
+
+            questions.Add(new Questions {ID=5, Text = "Конец", replyMarkup = new ReplyKeyboardRemove() });
+
+
+
             bot.Bot.OnMessage += OnMessageHandler;
             bot.Bot.OnCallbackQuery += OnInlineQueryHandler;
             bot.Bot.StartReceiving();
@@ -70,7 +80,8 @@ namespace SharpBot
         /// <param name="e">Получения клиента и его данных из сообщения</param>
         private static async void OnMessageHandler(object sender, MessageEventArgs e)
         {
-           
+
+
             if (e.Message.Type == MessageType.Text)
             {
                 new MessageClient(Users,questions).GenMessage(e);
@@ -78,11 +89,11 @@ namespace SharpBot
             }
             else if (e.Message.Type == MessageType.Photo)
             {
-                await new BotDownloandFile().DownloadPhoto(e);
+              await new MessageClient(Users,questions).DownloadPhoto(e);
             }
             else if (e.Message.Type == MessageType.Document)
             {
-                await new BotDownloandFile().DownloadDocument(e);
+                await new MessageClient(Users, questions).DownloadDocument(e);
             }
 
 

@@ -15,22 +15,25 @@ namespace SharpBot
     class StepQuestionsClass:TeleBot
     {
         private  ObservableCollection<BotUser> Users;
-        private  ObservableCollection<Questions> questions;
-        private ObservableCollection<mes> mes;
+       // private  ObservableCollection<Questions> questions;
+        private ObservableCollection<Questions> mes;
         private BotButtons Buttons=new BotButtons();
-        string gg = @"Добро пожаловать в КубГТУ! Абитуриентам мы особо рады, поможем определиться с выбором, расскажем про все этапы подачи документов.
-И самое главное, не нужно никуда ехать, документы на рассмотрение можно прислать сюда, а далее после проверки, специалист приемной комиссии свяжемся с Вами для согласования дальнейших действий 😇 Всё просто)";
-        public StepQuestionsClass(ObservableCollection<BotUser> Users, ObservableCollection<Questions> questions)
+           public StepQuestionsClass(ObservableCollection<BotUser> Users, ObservableCollection<Questions> mes)
         {
             this.Users = Users;
-            this.questions = questions;
-            mes = new ObservableCollection<mes>();
-            mes.Add(new mes { text=gg});
-            mes.Add(new mes { text = "В чём вопрос?", replyMarkup = (IReplyMarkup)new BotButtons().rrrrr() });
 
-            mes.Add(new mes { text = "Конец",replyMarkup=new ReplyKeyboardRemove() });
+            this.mes = mes;
+
+
+            //mes = new ObservableCollection<mes>();
+            //mes.Add(new mes { Text=gg});
+            //mes.Add(new mes { text = "В чём вопрос?", replyMarkup = (IReplyMarkup)new BotButtons().rrrrr() });
+
+            //mes.Add(new mes { text = "Конец",replyMarkup=new ReplyKeyboardRemove() });
         }
 
+
+   
         /// <summary>
         /// переход к следующему сообщению
         /// </summary>
@@ -41,7 +44,7 @@ namespace SharpBot
             {
 
 
-                new TeleBot().Bot.SendTextMessageAsync(Users[Users.IndexOf(person)].ID, mes[Users[Users.IndexOf(person)].Сount].text, replyMarkup: mes[Users[Users.IndexOf(person)].Сount].replyMarkup);
+                new TeleBot().Bot.SendTextMessageAsync(Users[Users.IndexOf(person)].ID, mes[Users[Users.IndexOf(person)].Сount].Text, replyMarkup: mes[Users[Users.IndexOf(person)].Сount].replyMarkup);
                    Users[Users.IndexOf(person)].Сount++;
                 // Bot.DeleteWebhookAsync();
                 //if (mes.Count > Users[Users.IndexOf(person)].Сount)
