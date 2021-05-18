@@ -38,6 +38,18 @@ namespace SharpBot
            
 
         }
+        public InlineKeyboardMarkup send()
+        {
+
+            var KeyboardButons = new InlineKeyboardButton[][]
+                  {
+                  new InlineKeyboardButton[]
+                  {
+                     InlineKeyboardButton.WithCallbackData("Отправить", "send") ,
+                  }
+                  };
+            return KeyboardButons;
+        }
         public InlineKeyboardMarkup InlineKeyboardMarkupButtons()
         {
 

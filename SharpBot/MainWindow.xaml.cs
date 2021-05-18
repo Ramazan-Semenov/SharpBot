@@ -33,8 +33,7 @@ namespace SharpBot
         static bool ff = false;
 
         private static ObservableCollection<Questions> questions;
-        private static ObservableCollection<Questions> questions2;
-        private static ObservableCollection<Questions> questions3 ;
+        private static ObservableCollection<Questions> command_1;
 
 
         string gg = @"Добро пожаловать в КубГТУ! Абитуриентам мы особо рады, поможем определиться с выбором, расскажем про все этапы подачи документов.
@@ -58,12 +57,6 @@ namespace SharpBot
 
             questions.Add(new Questions {ID=5, Text = "Конец", replyMarkup = new ReplyKeyboardRemove() });
 
-            questions2 = new ObservableCollection<Questions>();
-
-
-            questions2.Add(new Questions { ID = 1, Text = "Command_2_1" });
-            questions2.Add(new Questions { ID = 2, Text = "Command_2_2" });
-            questions2.Add(new Questions { ID = 3, Text = "Command_2_3" });
 
             bot.Bot.OnMessage += OnMessageHandler;
             bot.Bot.OnCallbackQuery += OnInlineQueryHandler;
@@ -76,12 +69,21 @@ namespace SharpBot
             if (e.CallbackQuery.Data == "Command_1")
             {
                 ff = true;
+                questions = new ObservableCollection<Questions>();
+                command_1 = new ObservableCollection<Questions>();
+
+
+                command_1.Add(new Questions { ID = 1, Text = "фио" });
+                command_1.Add(new Questions { ID = 2, Text = "номер телефона" });
+                command_1.Add(new Questions { ID = 3, Text = "направление" ,replyMarkup= new BotButtons().send ()});
+                questions = command_1;
                 new MessageClient(Users, questions,read: ff, userEmails).GenMessage(e);
 
 
             }
-            else if (e.CallbackQuery.Data == "Command_2")
+            else if (e.CallbackQuery.Data == "send")
             {
+                await bot.Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "Отправлено");
             }
             else if (e.CallbackQuery.Data == "Command_3")
             {
