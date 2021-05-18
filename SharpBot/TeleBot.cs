@@ -8,8 +8,9 @@ namespace SharpBot
         private static readonly string token = "1833119055:AAFk3L81Z4lHybJo54uusZWCBX2a6D6z2hI";
         protected static TelegramBotClient bot = new TelegramBotClient(token: token);
 
-        public TelegramBotClient Bot { get => bot; set => bot = value; }
 
+        public TelegramBotClient Bot { get => bot; set => bot = value; }
+        
         //public TeleBot()
         //{
 

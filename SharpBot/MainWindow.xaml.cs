@@ -29,7 +29,14 @@ namespace SharpBot
     {
 
         private static ObservableCollection<BotUser> Users;
+        private static ObservableCollection<UserEmail>  userEmails;
+        static bool ff = false;
+
         private static ObservableCollection<Questions> questions;
+        private static ObservableCollection<Questions> questions2;
+        private static ObservableCollection<Questions> questions3 ;
+
+
         string gg = @"Добро пожаловать в КубГТУ! Абитуриентам мы особо рады, поможем определиться с выбором, расскажем про все этапы подачи документов.
 И самое главное, не нужно никуда ехать, документы на рассмотрение можно прислать сюда, а далее после проверки, специалист приемной комиссии свяжемся с Вами для согласования дальнейших действий 😇 Всё просто)";
 
@@ -37,19 +44,26 @@ namespace SharpBot
         public MainWindow()
         {            
             InitializeComponent();
-
-
             Users = new ObservableCollection<BotUser>();
             questions = new ObservableCollection<Questions>();
-            userList.ItemsSource = Users;
-            questions.Add(new Questions { ID = 1, Text = "111" });
+            userEmails = new ObservableCollection<UserEmail>();
+            userList.ItemsSource = userEmails;
+            questions.Add(new Questions { ID = 1, Text = "fffff" });
             questions.Add(new Questions { ID = 2, Text = "222" });
             questions.Add(new Questions { ID = 3, Text = "333" });
-            questions.Add(new Questions {ID=4, Text = gg+"\nВ чём вопрос?", replyMarkup = (IReplyMarkup)new BotButtons().GetButtons() });
+            questions.Add(new Questions {ID=4, Text = gg+"\nВ чём вопрос?", replyMarkup =  (IReplyMarkup)new BotButtons().InlineKeyboardMarkupButtons() });
+            questions.Add(new Questions { ID = 5, Text = "rrrr", replyMarkup = new ReplyKeyboardRemove() });
+            questions.Add(new Questions { ID = 5, Text = "rrrr", replyMarkup = new ReplyKeyboardRemove() });
+            questions.Add(new Questions { ID = 5, Text = "ggg", replyMarkup = new ReplyKeyboardRemove() });
 
             questions.Add(new Questions {ID=5, Text = "Конец", replyMarkup = new ReplyKeyboardRemove() });
 
+            questions2 = new ObservableCollection<Questions>();
 
+
+            questions2.Add(new Questions { ID = 1, Text = "Command_2_1" });
+            questions2.Add(new Questions { ID = 2, Text = "Command_2_2" });
+            questions2.Add(new Questions { ID = 3, Text = "Command_2_3" });
 
             bot.Bot.OnMessage += OnMessageHandler;
             bot.Bot.OnCallbackQuery += OnInlineQueryHandler;
@@ -61,14 +75,19 @@ namespace SharpBot
         {
             if (e.CallbackQuery.Data == "Command_1")
             {
-                await bot.Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "Command_1");
+                ff = true;
+                new MessageClient(Users, questions,read: ff, userEmails).GenMessage(e);
 
 
             }
             else if (e.CallbackQuery.Data == "Command_2")
             {
-
-                await bot.Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "Command_2");
+            }
+            else if (e.CallbackQuery.Data == "Command_3")
+            {
+                questions = new ObservableCollection<Questions>();
+                new MessageClient(Users, questions).GenMessage(e);
+                //   await bot.Bot.SendTextMessageAsync(e.CallbackQuery.Message.Chat.Id, "Command_2");
             }
 
         }
@@ -81,10 +100,10 @@ namespace SharpBot
         private static async void OnMessageHandler(object sender, MessageEventArgs e)
         {
 
-
+            //MessageBox.Show(e.Message.Type.ToString());
             if (e.Message.Type == MessageType.Text)
             {
-                new MessageClient(Users,questions).GenMessage(e);
+                new MessageClient(Users,questions, ff, userEmails).GenMessage(e);
 
             }
             else if (e.Message.Type == MessageType.Photo)

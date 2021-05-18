@@ -66,6 +66,7 @@
     <Compile Include="MessageClient.cs" />
     <Compile Include="StepQuestionsClass.cs" />
     <Compile Include="TeleBot.cs" />
+    <Compile Include="UserEmail.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -57,15 +57,15 @@ namespace SharpBot
                   },
                    new InlineKeyboardButton[]
                   {
-                     InlineKeyboardButton.WithCallbackData("стоимость обучения", "dsd") ,
+                     InlineKeyboardButton.WithCallbackData("стоимость обучения", "Command_3") ,
                   },
                    new InlineKeyboardButton[]
                   {
-                     InlineKeyboardButton.WithCallbackData("подача документов", "dsd") ,
+                     InlineKeyboardButton.WithCallbackData("подача документов", "Command_2") ,
                   },
                    new InlineKeyboardButton[]
                   {
-                     InlineKeyboardButton.WithCallbackData("Другое", "dsd") ,
+                     InlineKeyboardButton.WithCallbackData("Другое", "Command_1") ,
                   }
                   };
             return KeyboardButons;

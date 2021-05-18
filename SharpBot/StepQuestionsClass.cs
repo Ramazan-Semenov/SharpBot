@@ -17,7 +17,7 @@ namespace SharpBot
         private  ObservableCollection<BotUser> Users;
        // private  ObservableCollection<Questions> questions;
         private ObservableCollection<Questions> mes;
-        private BotButtons Buttons=new BotButtons();
+       // private BotButtons Buttons=new BotButtons();
            public StepQuestionsClass(ObservableCollection<BotUser> Users, ObservableCollection<Questions> mes)
         {
             this.Users = Users;
@@ -76,6 +76,7 @@ namespace SharpBot
             }
             catch (Exception e)
             {
+                Users[Users.IndexOf(person)].Сount=0;
                 Debug.WriteLine(e.Message);
                 File.AppendAllText("data.log", $"{e.Message}\n");
             }
